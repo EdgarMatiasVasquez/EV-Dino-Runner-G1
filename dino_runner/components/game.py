@@ -85,6 +85,7 @@ class Game:
         center_y = SCREEN_HEIGHT // 2
         CENTER_Y_SCORE = center_y +45
         CENTER_Y_DEATH_COUNT = center_y +90
+        CENTER_Y_MAX_SXORE = center_y +135
         self.screen.fill((255, 255, 255))
         if self.death_count == 0:
             self.show_message(center_x, center_y, letter_size=30, message="Press any key to start")
@@ -93,6 +94,7 @@ class Game:
             self.show_message(center_x, center_y,letter_size=30, message="Press any key to Restart") 
             self.show_message(center_x, center_y=CENTER_Y_SCORE, letter_size=30, message=f"Your Score: {self.score.score}")
             self.show_message(center_x, center_y=CENTER_Y_DEATH_COUNT, letter_size=30, message=f"Your Death Count: {self.death_count}")
+            self.show_message(center_x, center_y=CENTER_Y_MAX_SXORE, letter_size=30, message=f"Your Max Score: {self.score.max_score}")
             self.screen.blit(DINO_START,(center_x -49,center_y -121))
             
         pygame.display.update()
