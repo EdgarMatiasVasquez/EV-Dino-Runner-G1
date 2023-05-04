@@ -1,20 +1,24 @@
 import pygame
 from pygame.sprite import Sprite
 
-from dino_runner.utils.constants import DUCKING, JUMPING, RUNNING
+from dino_runner.utils.constants import DEFAULT_TYPE, DUCKING, DUCKING_SHIELD, JUMPING, JUMPING_SHIELD, RUNNING, RUNNING_SHIELD, SCREEN_WIDTH, SHIELD_TYPE
 
 JUMP_VELOCITY = 8.5
 DINO_RUNNING = "running"
 DINO_JUMPING = "jumping"
 DINO_DUCKING = "ducking"
 
+RUNNING_IMG = {DEFAULT_TYPE: RUNNING, SHIELD_TYPE: RUNNING_SHIELD}
+JUMPING_IMG = {DEFAULT_TYPE: JUMPING, SHIELD_TYPE: JUMPING_SHIELD}
+DUCKING_IMG = {DEFAULT_TYPE: DUCKING, SHIELD_TYPE: DUCKING_SHIELD}
 
 class Dinosaur(Sprite): #PasCalCase
     POS_Y = 310 
     POS_X = 80
     POS_Y_DUCK = 340
     def __init__(self):
-        self.image = RUNNING[0]
+        self.type = DEFAULT_TYPE
+        self.image = RUNNING_IMG[self.type][0]
         self.rect = self.image.get_rect()
         self.rect.x = self.POS_X
         self.rect.y = self.POS_Y
@@ -46,12 +50,12 @@ class Dinosaur(Sprite): #PasCalCase
 
     def run(self):
         self.rect.y = self.POS_Y
-        self.image = RUNNING[0] if self.step < 5 else RUNNING[1]
+        self.image = RUNNING_IMG[self.type][0] if self.step < 5 else RUNNING_IMG[self.type][1]
         self.step += 1
 
     def jump(self):
         pos_y = self.rect.y - self.jump_velocity * 4
-        self.image = JUMPING
+        self.image = JUMPING_IMG[self.type]
         self.jump_velocity -= 0.8
         self.rect.y = pos_y
         if self.jump_velocity < -JUMP_VELOCITY:
@@ -61,8 +65,22 @@ class Dinosaur(Sprite): #PasCalCase
 
     def duck(self):
         self.rect.y = self.POS_Y_DUCK
-        self.image = DUCKING[0] if self.step < 5 else DUCKING[1] 
+        self.image = DUCKING_IMG[self.type][0] if self.step < 5 else DUCKING_IMG[self.type][1] 
         self.step += 1
+    def on_pick_power_up(self, power_up):
+        self.type = power_up.type
+        self.power_up_time_up = power_up.start_time + (power_up.duration * 1000)
+
+    def draw_power_up(self, show_message):
+        if self.type != DEFAULT_TYPE:
+            time_to_show = round((self.power_up_time_up - pygame.time.get_ticks())/1000, 2)
+            if time_to_show >= 0:
+                show_message(center_x=SCREEN_WIDTH // 2, center_y=50 // 2,letter_size=22, message=f"{self.type.capitalize()} enabled for {time_to_show}")   
+            else:
+                self.type = DEFAULT_TYPE
+                self.power_up_time_up = 0
+
+        
     
         
             
