@@ -2,13 +2,14 @@ import random
 import pygame
 from dino_runner.components.obstacles.bird import Bird
 from dino_runner.components.obstacles.cactus import Cactus
+from dino_runner.utils.constants import DINO_DEAD
 
 
 class ObstacleManager:
 
     def __init__(self):
         self.obstacles = []
-        
+        self.chocar = False
 
     def update(self, game_speed, player, on_death):
         if len(self.obstacles) == 0:
