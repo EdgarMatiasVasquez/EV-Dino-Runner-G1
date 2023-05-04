@@ -73,7 +73,7 @@ class Dinosaur(Sprite): #PasCalCase
         self.power_up_time_up = power_up.start_time + (power_up.duration * 1000)
 
     def draw_power_up(self, show_message, game_speed, game):
-        if self.type == SHIELD_TYPE:
+        if self.type != DEFAULT_TYPE:
             time_to_show = round((self.power_up_time_up - pygame.time.get_ticks())/1000, 2)
             if time_to_show <= 1 and time_to_show >= 0 :
                 show_message(center_x=SCREEN_WIDTH // 2, center_y=50 // 2,letter_size=22, message=f"{self.type.capitalize()} enabled for {time_to_show}", color=(255, 0, 0))
@@ -82,16 +82,16 @@ class Dinosaur(Sprite): #PasCalCase
             else:
                 self.type = DEFAULT_TYPE
                 self.power_up_time_up = 0
-        if self.type == HAMMER_TYPE:
-            time_to_show = round((self.power_up_time_up - pygame.time.get_ticks())/1000, 2)
-            if time_to_show <= 1 and time_to_show >= 0 :
-                show_message(center_x=SCREEN_WIDTH // 2, center_y=50 // 2,letter_size=22, message=f"{self.type.capitalize()} enabled for {time_to_show}", color=(255, 0, 0))
-            elif time_to_show >= 0:
-                show_message(center_x=SCREEN_WIDTH // 2, center_y=50 // 2,letter_size=22, message=f"{self.type.capitalize()} enabled for {time_to_show}", color=(0, 0, 0))  
-            else:
-                self.type = DEFAULT_TYPE
-                self.power_up_time_up = 0
-                #game_speed = game.game_speed
+        # if self.type == HAMMER_TYPE:
+        #     time_to_show = round((self.power_up_time_up - pygame.time.get_ticks())/1000, 2)
+        #     if time_to_show <= 1 and time_to_show >= 0 :
+        #         show_message(center_x=SCREEN_WIDTH // 2, center_y=50 // 2,letter_size=22, message=f"{self.type.capitalize()} enabled for {time_to_show}", color=(255, 0, 0))
+        #     elif time_to_show >= 0:
+        #         show_message(center_x=SCREEN_WIDTH // 2, center_y=50 // 2,letter_size=22, message=f"{self.type.capitalize()} enabled for {time_to_show}", color=(0, 0, 0))  
+        #     else:
+        #         self.type = DEFAULT_TYPE
+        #         self.power_up_time_up = 0
+        #         #game_speed = game.game_speed
     
 
         
