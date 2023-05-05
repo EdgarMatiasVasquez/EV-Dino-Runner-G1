@@ -1,7 +1,7 @@
 import random
 import pygame
 
-from dino_runner.utils.constants import SCREEN_WIDTH
+from dino_runner.utils.constants import SCREEN_WIDTH, SMALL_HEART_TYPE
 class PowerUp:
     def __init__(self, image: pygame.Surface, power_up_type): 
         self.type = power_up_type
@@ -18,5 +18,9 @@ class PowerUp:
         if self.rect.x < -self.rect.width:
             power_ups.pop()
 
-    def draw(self, screen):
+    def draw(self, screen, show_message ):
         screen.blit(self.image, self.rect)
+        if self.type == SMALL_HEART_TYPE:
+            show_message(center_x=SCREEN_WIDTH // 2, center_y=50 ,letter_size=20, message="Take care of SMALL HEART", color=(204, 0, 0))
+            show_message(center_x=SCREEN_WIDTH // 2, center_y=100 ,letter_size=30, message="↓", color=(204, 0, 0))
+            screen.blit(self.image, self.rect)

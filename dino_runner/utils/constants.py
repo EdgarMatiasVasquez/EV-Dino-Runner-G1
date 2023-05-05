@@ -13,7 +13,7 @@ ICON = pygame.image.load(os.path.join(IMG_DIR, "DinoWallpaper.png"))
 DINO_START = pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoStart.png"))
 RESET = pygame.image.load(os.path.join(IMG_DIR, "Other/Reset.png"))
 GAME_OVER = pygame.image.load(os.path.join(IMG_DIR, "Other/GameOver.png"))
-
+SMALL_HEART = pygame.image.load(os.path.join(IMG_DIR, "Other/SmallHeart.png"))
 DINO_DEAD = pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoDead.png"))
 RUNNING = [
     pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoRun1.png")),
@@ -76,3 +76,4 @@ HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
 DEFAULT_TYPE = "default"
 SHIELD_TYPE = "shield"
 HAMMER_TYPE = "hammer"
+SMALL_HEART_TYPE = "small_heart"

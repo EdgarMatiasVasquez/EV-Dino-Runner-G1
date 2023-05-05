@@ -5,7 +5,7 @@ from dino_runner.components.obstacles.obstacleManager import ObstacleManager
 from dino_runner.components.power_ups.power_up_manager import PowerUpManager
 from dino_runner.components.score import Score
 
-from dino_runner.utils.constants import BG, DINO_DEAD, DINO_START, GAME_OVER, HAMMER_TYPE, ICON, RESET, SCREEN_HEIGHT, SCREEN_WIDTH, SHIELD_TYPE, TITLE, FPS
+from dino_runner.utils.constants import BG, DINO_DEAD, DINO_START, GAME_OVER, HAMMER_TYPE, ICON, RESET, SCREEN_HEIGHT, SCREEN_WIDTH, SHIELD_TYPE, SMALL_HEART_TYPE, TITLE, FPS
 
 class Game:
     def __init__(self):
@@ -59,7 +59,7 @@ class Game:
         self.player.update(user_input)
         self.obstacleManager.update(self.game_speed, self.player, self.on_death)
         self.score.update(self)
-        self.power_up_manager.update(self.game_speed, self.score.score, self.player)
+        self.power_up_manager.update(self.game_speed, self.score.score, self.player, self.on_death_small_heart)
 
     def draw(self):
         self.clock.tick(FPS)
@@ -69,7 +69,7 @@ class Game:
         self.player.draw_power_up( self.show_message, self.game_speed, self)
         self.obstacleManager.draw(self.screen)
         self.score.draw(self.show_message)
-        self.power_up_manager.draw(self.screen)
+        self.power_up_manager.draw(self.screen, self.show_message)
         pygame.display.update()
         pygame.display.flip()
         
@@ -88,10 +88,12 @@ class Game:
         if is_destructor:
             self.obstacleManager.obstacles = []
             self.game_speed -= 4
+        
         elif not is_invincible and not is_destructor: 
             pygame.time.delay(500)
             self.playing = False
             self.death_count += 1
+        
 
     def show_menu(self):  
         center_x = SCREEN_WIDTH // 2
@@ -131,4 +133,8 @@ class Game:
         text_rect.center = (center_x, center_y)
         self.screen.blit(text, text_rect)
 
-                          
+    def on_death_small_heart(self):
+        pygame.time.delay(500)
+        self.playing = False
+        self.death_count += 1
+                            
