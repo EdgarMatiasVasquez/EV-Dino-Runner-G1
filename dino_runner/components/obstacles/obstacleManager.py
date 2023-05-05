@@ -2,6 +2,7 @@ import random
 import pygame
 from dino_runner.components.obstacles.bird import Bird
 from dino_runner.components.obstacles.cactus import Cactus
+
 from dino_runner.utils.constants import DINO_DEAD
 
 
@@ -18,6 +19,7 @@ class ObstacleManager:
                 self.obstacles.append(Cactus())
             else:
                 self.obstacles.append(Bird())
+
 
         for obstacle in self.obstacles:
             obstacle.update(game_speed, self.obstacles)
